@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     private Vector3 _velocity;
     private float _yVelocity;
 
+    public float Velocity => _velocity.x;
+
     CharacterController _controller;
 
     private void Awake()
@@ -26,7 +28,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        var zHorizontal = Input.GetAxis("Horizontal");
+        var zHorizontal = Input.GetAxisRaw("Horizontal");
 
         if (_controller.isGrounded)
         {
