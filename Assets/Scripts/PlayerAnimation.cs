@@ -9,8 +9,8 @@ public class PlayerAnimation : MonoBehaviour
 
     private void Awake()
     {
-        _player = GetComponent<Player>();
-        _anim = GetComponentInChildren<Animator>();    
+        _player = GetComponentInParent<Player>();
+        _anim = GetComponent<Animator>();    
     }
 
     void Start()
@@ -22,5 +22,9 @@ public class PlayerAnimation : MonoBehaviour
     {
         var zHorizontal = Input.GetAxisRaw("Horizontal");
         _anim.SetFloat("xMove", Mathf.Abs(zHorizontal));
+
+        _anim.SetBool("jumping", _player.IsJumping);
+
     }
+
 }
