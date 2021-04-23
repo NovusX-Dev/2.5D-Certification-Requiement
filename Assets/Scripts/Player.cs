@@ -13,9 +13,20 @@ public class Player : MonoBehaviour
     private float zHorizontal;
     private float _yVelocity;
     private bool _isJumping;
+    private bool _grabbedLedge;
+
+    private PlayerLedgeChecker _activeLedge;
+
 
     public float Velocity => _velocity.x;
     public bool IsJumping => _isJumping;
+
+    public bool GrabbedLedge
+    {
+        get => _grabbedLedge;
+        set => _grabbedLedge = value;
+    }
+
 
     CharacterController _controller;
 
@@ -33,9 +44,19 @@ public class Player : MonoBehaviour
     {
         zHorizontal = Input.GetAxisRaw("Horizontal");
 
+        if (_grabbedLedge) return;
+        CalculateMovement();
+        FlipPlayer();
+    }
+
+    private void CalculateMovement()
+    {
         if (_controller.isGrounded)
         {
-            if(_isJumping) { _isJumping = false; }
+            if (_isJumping)
+            {
+                _isJumping = false;
+            }
 
             _moveDirection.z = zHorizontal;
             _velocity = _moveDirection * _moveSpeed;
@@ -43,6 +64,7 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 _isJumping = true;
+                _yVelocity = 0;
                 _yVelocity = _jumpHeight;
             }
         }
@@ -53,8 +75,6 @@ public class Player : MonoBehaviour
 
         _velocity.y = _yVelocity;
         _controller.Move(_velocity * Time.deltaTime);
-
-        FlipPlayer();
     }
 
     private void FlipPlayer()
@@ -67,6 +87,22 @@ public class Player : MonoBehaviour
         {
             transform.localScale = new Vector3(3, 3, -3);
         }
+    }
+
+    public void GrabLedge(Vector3 handPos, PlayerLedgeChecker currentLedge)
+    {
+        _controller.enabled = false;
+        _grabbedLedge = true;
+        transform.position = handPos;
+        _isJumping = false;
+        _activeLedge = currentLedge;
+    }
+
+    public void ClimbUpFromLedge()
+    {
+        _grabbedLedge = false;
+        transform.position = _activeLedge.GetStandUpPos();
+        _controller.enabled = true;
     }
 
 }//class

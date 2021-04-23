@@ -13,11 +13,6 @@ public class PlayerAnimation : MonoBehaviour
         _anim = GetComponent<Animator>();    
     }
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         var zHorizontal = Input.GetAxisRaw("Horizontal");
@@ -25,6 +20,17 @@ public class PlayerAnimation : MonoBehaviour
 
         _anim.SetBool("jumping", _player.IsJumping);
 
+        if (Input.GetKeyDown(KeyCode.E) && _player.GrabbedLedge)
+        {
+            _anim.SetTrigger("climbUp");
+        }
+
+        _anim.SetBool("grabbedLedge", _player.GrabbedLedge);
+    }
+
+    public void GrabAnimation()
+    {
+        _anim.SetBool("grabbedLedge", _player.GrabbedLedge);
     }
 
 }
