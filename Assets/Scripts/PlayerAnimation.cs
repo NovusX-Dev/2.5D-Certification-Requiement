@@ -20,7 +20,7 @@ public class PlayerAnimation : MonoBehaviour
 
         _anim.SetBool("jumping", _player.IsJumping);
 
-        if (Input.GetKeyDown(KeyCode.E) && _player.GrabbedLedge)
+        if (Input.GetKeyDown(KeyCode.W) && _player.GrabbedLedge)
         {
             _anim.SetTrigger("climbUp");
         }
