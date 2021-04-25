@@ -26,11 +26,17 @@ public class PlayerAnimation : MonoBehaviour
         }
 
         _anim.SetBool("grabbedLedge", _player.GrabbedLedge);
+
     }
 
     public void GrabAnimation()
     {
         _anim.SetBool("grabbedLedge", _player.GrabbedLedge);
+    }
+
+    public void BlowAKiss()
+    {
+        _anim.SetTrigger("kiss");
     }
 
 }
