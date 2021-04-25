@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     private Vector3 _velocity;
     private float zHorizontal;
     private float _yVelocity;
+    private int _coins;
     private bool _isJumping;
     private bool _grabbedLedge;
 
@@ -103,6 +104,17 @@ public class Player : MonoBehaviour
         _grabbedLedge = false;
         transform.position = _activeLedge.GetStandUpPos();
         _controller.enabled = true;
+    }
+
+    public void AddCoins()
+    {
+        _coins++;
+        UIManager.Instance.UpdateCoins();
+    }
+
+    public int GetTotalCoins()
+    {
+        return _coins;
     }
 
 }//class
