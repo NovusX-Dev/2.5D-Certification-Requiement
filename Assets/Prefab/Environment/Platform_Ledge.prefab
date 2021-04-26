@@ -11632,7 +11632,7 @@ GameObject:
   - component: {fileID: 6042506145461654931}
   - component: {fileID: 6042506145461654930}
   m_Layer: 0
-  m_Name: Scifi_Floors_Edge (4)
+  m_Name: Ledge Checker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -15,11 +15,12 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         _instance = this;
+        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     void Start()
     {
-        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        
     }
 
     void Update()

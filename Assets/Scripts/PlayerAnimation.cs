@@ -18,6 +18,10 @@ public class PlayerAnimation : MonoBehaviour
         var zHorizontal = Input.GetAxisRaw("Horizontal");
         _anim.SetFloat("xMove", Mathf.Abs(zHorizontal));
 
+        var yVertical = Input.GetAxisRaw("Vertical");
+
+        _anim.SetBool("isClimbingLadder", yVertical != 0);
+
         _anim.SetBool("jumping", _player.IsJumping);
 
         if (Input.GetKeyDown(KeyCode.W) && _player.GrabbedLedge)
@@ -27,16 +31,18 @@ public class PlayerAnimation : MonoBehaviour
 
         _anim.SetBool("grabbedLedge", _player.GrabbedLedge);
 
+        _anim.SetBool("climbingLadder", _player.OnLadder);
     }
 
-    public void GrabAnimation()
-    {
-        _anim.SetBool("grabbedLedge", _player.GrabbedLedge);
-    }
 
     public void BlowAKiss()
     {
         _anim.SetTrigger("kiss");
+    }
+
+    public void ClimbUpFromLadder()
+    {
+        _anim.SetTrigger("climbUpLadderTrigger");
     }
 
 }
