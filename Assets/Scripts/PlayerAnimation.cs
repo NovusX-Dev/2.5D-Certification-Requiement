@@ -32,6 +32,8 @@ public class PlayerAnimation : MonoBehaviour
         _anim.SetBool("grabbedLedge", _player.GrabbedLedge);
 
         _anim.SetBool("climbingLadder", _player.OnLadder);
+
+        _anim.SetBool("push", _player.IsPushing);
     }
 
 
@@ -43,6 +45,11 @@ public class PlayerAnimation : MonoBehaviour
     public void ClimbUpFromLadder()
     {
         _anim.SetTrigger("climbUpLadderTrigger");
+    }
+
+    public void DodgePlayer()
+    {
+        _anim.SetTrigger("roll");
     }
 
 }

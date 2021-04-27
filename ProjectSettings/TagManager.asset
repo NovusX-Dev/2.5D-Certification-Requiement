@@ -7,6 +7,7 @@ TagManager:
   - Ledge
   - Ledge Checker
   - Coin
+  - Crate_Pushable
   layers:
   - Default
   - TransparentFX
