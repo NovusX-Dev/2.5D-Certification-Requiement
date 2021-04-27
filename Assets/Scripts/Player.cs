@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     private bool _canClimbLadder;
     private bool _onLadder;
     private bool _isPushing;
+    private bool _isRolling = false;
 
     private enum State { Normal, Rolling}
     private State _state;
@@ -173,7 +174,10 @@ public class Player : MonoBehaviour
 
     private void HandleRolling()
     {
-        GetComponentInChildren<PlayerAnimation>().DodgePlayer();
+        Debug.Log("Dodge called");
+        if(!_isRolling)
+            GetComponentInChildren<PlayerAnimation>().DodgePlayer();
+
         var dir = _moveSpeed;
 
         if (transform.localScale.z > 0)
@@ -185,16 +189,17 @@ public class Player : MonoBehaviour
             if (dir > 0) dir *= -1;
         }
         _controller.SimpleMove(new Vector3(0,0, dir));
+        _isRolling = true;
     }
 
     public void ChangeStateToNormal()
     {
         _state = State.Normal;
+        _isRolling = false;
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        Debug.Log(hit.collider.name);
         if (hit.collider.CompareTag("Crate_Pushable"))
         {
             var movableObj = hit.collider.attachedRigidbody;
