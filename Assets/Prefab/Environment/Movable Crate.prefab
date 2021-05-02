@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3155952394155834160}
   - component: {fileID: 3155952394155834161}
   - component: {fileID: 3155952394155834163}
-  - component: {fileID: 1928537277}
+  - component: {fileID: 888097107}
   m_Layer: 0
   m_Name: Movable Crate
   m_TagString: Crate_Pushable
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3155952394155834164}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.21, y: 71.19, z: 98.323654}
-  m_LocalScale: {x: 2.1121774, y: 4.5464, z: 2.0603}
+  m_LocalScale: {x: 1.5, y: 2.7, z: 1.1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -41,7 +41,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3155952394155834164}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 2222767807609756407, guid: 0c147a69333384d648a4d99c1934762b, type: 3}
 --- !u!23 &3155952394155834161
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 1003256c94e30034ba42d0b5b429d97b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -99,7 +99,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!136 &1928537277
+--- !u!136 &888097107
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -109,7 +109,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.6486457
-  m_Height: 1.0885898
+  m_Radius: 0.49825287
+  m_Height: 1.4399999
   m_Direction: 1
-  m_Center: {x: 0, y: 0.044294864, z: -0.15238862}
+  m_Center: {x: 0, y: 0.71999997, z: -0.22166443}

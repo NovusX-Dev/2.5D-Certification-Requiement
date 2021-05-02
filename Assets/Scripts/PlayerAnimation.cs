@@ -4,17 +4,23 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
+    [SerializeField] AudioClip[] _footSteps;
+
     Player _player;
     Animator _anim;
+    AudioSource _audioSource;
 
     private void Awake()
     {
         _player = GetComponentInParent<Player>();
-        _anim = GetComponent<Animator>();    
+        _anim = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
     {
+        if (_player.IsFrozen) return;
+
         var zHorizontal = Input.GetAxisRaw("Horizontal");
         _anim.SetFloat("xMove", Mathf.Abs(zHorizontal));
 
@@ -50,6 +56,18 @@ public class PlayerAnimation : MonoBehaviour
     public void DodgePlayer()
     {
         _anim.SetTrigger("roll");
+    }
+
+    public void FootStepSound()
+    {
+        _audioSource.clip = _footSteps[Random.Range(0, _footSteps.Length)];
+        _audioSource.Play();
+
+    }
+
+    public void WinDance()
+    {
+        _anim.SetTrigger("winDance");
     }
 
 }

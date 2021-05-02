@@ -13,7 +13,7 @@ public class MovingPlatform : MonoBehaviour
 
     private void Awake()
     {
-        _waitTime = new WaitForSeconds(Random.Range(1f, 2f));
+        _waitTime = new WaitForSeconds(1.5f);
     }
 
     void Start()

@@ -22,8 +22,9 @@ public class Player : MonoBehaviour
     private bool _onLadder;
     private bool _isPushing;
     private bool _isRolling = false;
+    private bool _isFrozen;
 
-    private enum State { Normal, Rolling}
+    private enum State { Normal, Rolling, Freeze}
     private State _state;
 
     PlayerLedgeChecker _activeLedge;
@@ -54,6 +55,10 @@ public class Player : MonoBehaviour
         get => _isPushing;
         set => _isPushing = value;
     }
+
+    public bool IsFrozen => _isFrozen;
+
+
     #endregion
 
 
@@ -64,10 +69,6 @@ public class Player : MonoBehaviour
         _controller = GetComponent<CharacterController>();    
     }
 
-    void Start()
-    {
-        
-    }
 
     void Update()
     {
@@ -78,13 +79,19 @@ public class Player : MonoBehaviour
         switch (_state)
         {
             case State.Normal:
+                _isFrozen = false;
                 CalculateMovement();
                 FlipPlayer();
                 DodgeRollInput();
                 break;
 
             case State.Rolling:
+                _isFrozen = false;
                 HandleRolling();
+                break;
+            case State.Freeze:
+                _isFrozen = true;
+                FreezePlayer();
                 break;
 
         }
@@ -116,7 +123,7 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 _isJumping = true;
-                _yVelocity = 0;
+               // _yVelocity = 0;
                 _yVelocity = _jumpHeight;
             }
 
@@ -174,7 +181,6 @@ public class Player : MonoBehaviour
 
     private void HandleRolling()
     {
-        Debug.Log("Dodge called");
         if(!_isRolling)
             GetComponentInChildren<PlayerAnimation>().DodgePlayer();
 
@@ -196,6 +202,21 @@ public class Player : MonoBehaviour
     {
         _state = State.Normal;
         _isRolling = false;
+
+        if (_controller.enabled == false)
+        {
+            _controller.enabled = true;
+        }
+    }
+
+    public void ChangeStateToFreeze()
+    {
+        _state = State.Freeze;
+    }
+
+    private void FreezePlayer()
+    {
+        _controller.enabled = false;
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -258,6 +279,22 @@ public class Player : MonoBehaviour
     public int GetTotalCoins()
     {
         return _coins;
+    }
+
+    public void RespawnPlayer(Transform respawnPos)
+    {
+        StartCoroutine(RespawnPlayerRoutine(respawnPos));
+    }
+
+    public IEnumerator RespawnPlayerRoutine(Transform respawnPos)
+    {
+        
+        yield return UIManager.Instance.FadeIn(0.5f);
+        ChangeStateToFreeze();
+        yield return new WaitForSeconds(0.5f);
+        transform.position = respawnPos.position;
+        yield return UIManager.Instance.FadeOut(2f);
+        ChangeStateToNormal();
     }
 
 }//class
